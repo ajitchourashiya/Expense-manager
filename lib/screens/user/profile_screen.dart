@@ -1,0 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../core/theme.dart';
+import '../../widgets/banner_ad.dart';
+import '../../providers/auth_provider.dart';
+import '../../widgets/common.dart';
+
+class UserProfileScreen extends StatelessWidget { const UserProfileScreen({super.key});
+ @override Widget build(BuildContext context){final u=context.watch<AuthProvider>().currentUser;return SafeArea(child:SingleChildScrollView(padding:const EdgeInsets.fromLTRB(20,24,20,120),child:Column(children:[const AppLogo(size:76),const SizedBox(height:16),Text(u?.name??'User',style:const TextStyle(fontSize:23,fontWeight:FontWeight.w800)),const SizedBox(height:5),Text(u?.email??'',style:const TextStyle(color:AppColors.slate)),const SizedBox(height:28),Container(width:double.infinity,padding:const EdgeInsets.all(18),decoration:BoxDecoration(color:Colors.white,borderRadius:BorderRadius.circular(22),border:Border.all(color:AppColors.border)),child:Column(children:[_row(Icons.phone_outlined,'Mobile',u?.phone??'—'),const Divider(height:28),_row(Icons.email_outlined,'Email',u?.email??'—'),const Divider(height:28),_row(Icons.verified_user_outlined,'Account','Standard User')])),const SizedBox(height:20),const BannerAdWidget(),const SizedBox(height:20),OutlinedButton.icon(onPressed:()=>context.read<AuthProvider>().logout(),icon:const Icon(Icons.logout_rounded,color:AppColors.danger),label:const Text('Sign Out',style:TextStyle(color:AppColors.danger,fontWeight:FontWeight.w700)),style:OutlinedButton.styleFrom(minimumSize:const Size(double.infinity,52),side:const BorderSide(color:Color(0x22DC2626)),shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(16))))])));}
+ Widget _row(IconData icon,String label,String value)=>Row(children:[Container(width:42,height:42,decoration:BoxDecoration(color:AppColors.primary.withValues(alpha:.08),borderRadius:BorderRadius.circular(13)),child:Icon(icon,color:AppColors.primary,size:21)),const SizedBox(width:13),Expanded(child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(label,style:const TextStyle(color:AppColors.slate,fontSize:11.5)),const SizedBox(height:3),Text(value,style:const TextStyle(fontWeight:FontWeight.w700))]))]);
+}
